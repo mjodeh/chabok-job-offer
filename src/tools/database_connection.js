@@ -4,8 +4,8 @@ const clickHouse = new ClickHouse({
     port: parseInt(process.env.DATABASE_PORT),
     debug: false,
     basicAuth: {
-        username: 'default',
-        password: '123456'
+        username: "default",
+        password: "123456"
     },
     isUseGzip: false,
     config: {
@@ -15,4 +15,4 @@ const clickHouse = new ClickHouse({
     }
 });
 
-export { clickHouse }
+export { clickHouse };

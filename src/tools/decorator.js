@@ -4,26 +4,19 @@ import logWinston from "./log";
  * log decorator
  * @param {string} className
  */
-const log = className => {
+const logTime = className => {
     return (target, key, descriptor) => {
         if (descriptor.value === null || descriptor.value === undefined) {
             return descriptor;
         }
         const originalMethod = descriptor.value.bind(target);
-        let funcParams = getParams(descriptor.value);
         descriptor.value = async (...args) => {
-            let currentTime = new Date().getTime();
-            let input = getFunctionInputAsObject(funcParams, args);
+            let currentTime = process.hrtime()[1];// time in nano sec
             try {
                 const result = await originalMethod(...args);
                 let logObject = {
                     className,
-                    funcName: key,
-                    input,
-                    output: result,
-                    hasException: false,
-                    time: new Date().getTime() - currentTime,
-                    trackId: input.trackId
+                    time: process.hrtime()[1] - currentTime,// execution time
                 };
                 logWinston.info(JSON.stringify(logObject));
                 return result;
@@ -31,13 +24,8 @@ const log = className => {
                 let logObject = {
                     className,
                     funcName: key,
-                    input,
                     hasException: true,
-                    time: new Date().getTime() - currentTime,
-                    exception: {
-                        message: ex.message
-                    },
-                    trackId: input.trackId
+                    time: process.hrtime()[1] - currentTime,// execution time
                 };
                 logWinston.info(JSON.stringify(logObject));
                 throw ex;
@@ -134,4 +122,4 @@ function getFunctionInputAsObject(params, args) {
 }
 
 /**@module decorators */
-export default { log, logController };
+export default { logTime, logController };
