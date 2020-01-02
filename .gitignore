@@ -1,0 +1,14 @@
+node_modules/
+src/views/
+.vscode/
+package-lock.json
+.env
+logs/
+dist/
+ui.txt
+.nyc_output/
+lib/
+out/
+DKIM/
+data_base/
+data/

@@ -1,0 +1,46 @@
+{
+  "name": "chabok-job-offer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cd $INIT_CWD/src && nyc mocha --compilers js:babel-core/register --timeout 30000 --exit",
+    "pretty": "prettier --write --tab-width 4 \"**/*.js\"",
+    "build": "rimraf lib/ && rimraf dist/ && babel -d lib/ src && webpack",
+    "start": "npm run build && node dist/user.service.js",
+    "deploy": "npm run build &&  scp -r ./dist $USER@$SERVER_IP:$SERVER_PATH",
+    "start:docker": "pm2-runtime service.core.js --watch"
+  },
+  "keywords": [],
+  "author": "mjodeh",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^3.9.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^1.3.1",
+    "mocha": "^5.2.0",
+    "nock": "^10.0.2",
+    "nyc": "^15.0.0",
+    "prettier": "^1.18.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pretty",
+      "pre-push": "npm run pretty"
+    }
+  }
+}
