@@ -37,7 +37,7 @@ class ChabokJobOffer {
     static async executeQueryBasedOnJoin() {
         return clickHouse
             .query(
-                "select * from chabokJob.chabokjob where id in (select id from chabokJob.chabokjob where name='Purchase') and id in (select id from chabokJob.chabokjob where name='Search')"
+                "select * from chabokJob.chabokjob inner join (select id from chabokJob.chabokjob inner join (select id from chabokJob.chabokjob where name='Purchase') as temp on temp.id=chabokjob.id where name='Search') as u on u.id=chabokjob.id"
             )
             .toPromise();
     }
