@@ -1,6 +1,5 @@
 /*jslint node : true */
 "use strict";
-import log from "./log";
-import decorator from "./decorator";
-
-export { log, decorator };
+export { logger } from "./log";
+export { logController, logTime } from "./decorator";
+export { clickHouse } from "./database_connection";

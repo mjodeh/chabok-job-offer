@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cd $INIT_CWD/src && nyc mocha --compilers js:babel-core/register --timeout 30000 --exit",
+    "test": "cd $INIT_CWD && nyc mocha --compilers js:babel-core/register --timeout 30000 --exit",
     "pretty": "prettier --write --tab-width 4 \"**/*.js\"",
     "build": "rimraf lib/ && rimraf dist/ && babel -d lib/ src && webpack",
-    "start": "npm run build && node dist/user.service.js",
+    "start": "rimraf logs/ && npm run build && node dist/chabok.clickhouse.js",
     "deploy": "npm run build &&  scp -r ./dist $USER@$SERVER_IP:$SERVER_PATH",
     "start:docker": "pm2-runtime service.core.js --watch"
   },

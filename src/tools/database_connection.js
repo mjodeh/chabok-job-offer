@@ -1,4 +1,5 @@
 import { ClickHouse } from "clickhouse";
+
 const clickHouse = new ClickHouse({
     url: process.env.DATABASE_HOST,
     port: parseInt(process.env.DATABASE_PORT),

@@ -9,7 +9,7 @@ module.exports = {
     target: "node",
     externals: [nodeExternals()], // in order to ignore all modules in node_modules folder
     output: {
-        filename: "user.service.js",
+        filename: "chabok.clickhouse.js",
         path: __dirname + "/dist",
         libraryTarget: "commonjs",
         devtoolModuleFilenameTemplate: function(info) {

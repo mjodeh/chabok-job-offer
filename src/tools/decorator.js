@@ -1,5 +1,5 @@
 "use strict";
-import logWinston from "./log";
+import { logger } from "./log";
 /**
  * log decorator
  * @param {string} className
@@ -11,23 +11,24 @@ const logTime = className => {
         }
         const originalMethod = descriptor.value.bind(target);
         descriptor.value = async (...args) => {
-            let currentTime = process.hrtime()[1];// time in nano sec
+            let currentTime = Date.now();
             try {
                 const result = await originalMethod(...args);
                 let logObject = {
                     className,
-                    time: process.hrtime()[1] - currentTime,// execution time
+                    funcName: key,
+                    time: Date.now() - currentTime // execution time
                 };
-                logWinston.info(JSON.stringify(logObject));
+                logger.info(JSON.stringify(logObject));
                 return result;
             } catch (ex) {
                 let logObject = {
                     className,
                     funcName: key,
                     hasException: true,
-                    time: process.hrtime()[1] - currentTime,// execution time
+                    time: Date.now() - currentTime // execution time
                 };
-                logWinston.info(JSON.stringify(logObject));
+                logger.info(JSON.stringify(logObject));
                 throw ex;
             }
         };
@@ -56,7 +57,7 @@ const logController = className => {
                     time: new Date().getTime() - currentTime,
                     trackId: input.trackId
                 };
-                logWinston.info(JSON.stringify(logObject));
+                logger.info(JSON.stringify(logObject));
                 return result;
             } catch (ex) {
                 let logObject = {
@@ -70,7 +71,7 @@ const logController = className => {
                     },
                     trackId: input.trackId
                 };
-                logWinston.info(JSON.stringify(logObject));
+                logger.info(JSON.stringify(logObject));
                 return new result(true, 500, "internal server error", null);
             }
         };
@@ -122,4 +123,4 @@ function getFunctionInputAsObject(params, args) {
 }
 
 /**@module decorators */
-export default { logTime, logController };
+export { logTime, logController };

@@ -33,4 +33,4 @@ const logger = createLogger({
     transports: [infoTransport, errorTransport]
 });
 
-module.exports = logger;
+export { logger };
