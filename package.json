@@ -7,9 +7,10 @@
     "test": "cd $INIT_CWD && nyc mocha --compilers js:babel-core/register --timeout 30000 --exit",
     "pretty": "prettier --write --tab-width 4 \"**/*.js\"",
     "build": "rimraf lib/ && rimraf dist/ && babel -d lib/ src && webpack",
-    "start": "rimraf logs/ && npm run build && node dist/chabok.clickhouse.js",
+    "start": "rimraf logs/ && npm run build && node dist/chabok.clickhouse.js && npm run results",
     "deploy": "npm run build &&  scp -r ./dist $USER@$SERVER_IP:$SERVER_PATH",
-    "start:docker": "pm2-runtime service.core.js --watch"
+    "start:docker": "pm2-runtime chabok.clickhouse.js --watch",
+    "results": "TODAY=$(date \"+%Y-%m-%d\") && cat logs/info-$TODAY.log"
   },
   "keywords": [],
   "author": "mjodeh",

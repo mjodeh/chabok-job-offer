@@ -42,6 +42,9 @@ class ChabokJobOffer {
             .toPromise();
     }
 
+    /**
+     * insert multiple records
+     */
     @logTime("Database")
     static async insertMultiRecordSingleRecordPerRequest(num = 1) {
         let mocked = ObjectMocker.getMockedObject(

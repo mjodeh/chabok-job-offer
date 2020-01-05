@@ -1,5 +1,4 @@
 import { ChabokJobOffer } from "../src/database/database";
-import { ObjectMocker } from "../src/database/databaseObjectMocker";
 import { Chance } from "chance";
 import { assert, expect } from "chai";
 import { DatabaseInitialization } from "../src/database/databaseInitialization";
